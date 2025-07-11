@@ -1,0 +1,198 @@
+Content/Busqueda_Repositorios.md
+
+# Data-Source-API-Analyst-Test
+
+## Objetivo
+Este repositorio contiene la práctica para la vacante de Data Source API Analyst, enfocada en la extracción de datos usando la API de GitHub.
+
+## Estructura del repositorio
+
+- **README.md**: Documentación general y resumen del proyecto.
+- **Content/**: Documentos y código relacionado con la autenticación, endpoints, manejo de errores, paginación, y guías de solución de problemas.
+- **Postman_Collection/**: Colección Postman o notebooks para probar los endpoints de la API.
+
+## Paso 1: Investigación de la API de GitHub
+
+### Endpoints principales:
+- Búsqueda de repositorios públicos (`search/repositories`)
+- Listado de commits (`repos/{owner}/{repo}/commits`)
+- Contenidos de repositorios (`repos/{owner}/{repo}/contents/{path}`)
+
+# Investigación: Búsqueda de Repositorios en GitHub API
+
+## Objetivo
+Explicar los diferentes calificadores (`qualifiers`) y estrategias para buscar repositorios públicos en GitHub usando la API, enfocándonos en los criterios de búsqueda más comunes y útiles.
+
+---
+
+## 1. Búsqueda Básica de Repositorios
+
+Se puede buscar repositorios por:
+
+- Nombre del repositorio
+- Descripción
+- Contenido del archivo README
+
+### Calificadores para restringir la búsqueda:
+
+| Calificador      | Descripción                                         | Ejemplo                              |
+|------------------|-----------------------------------------------------|------------------------------------|
+| `in:name`        | Busca en el nombre del repositorio                   | `jquery in:name`                    |
+| `in:description` | Busca en nombre y descripción                        | `jquery in:name,description`       |
+| `in:topics`      | Busca en los temas asociados al repositorio          | `jquery in:topics`                  |
+| `in:readme`      | Busca en el contenido del archivo README            | `jquery in:readme`                  |
+| `repo:owner/name`| Busca un repositorio específico                       | `repo:octocat/hello-world`          |
+
+---
+
+## 2. Búsqueda Basada en Contenido del Repositorio
+
+- Se puede buscar contenido dentro del archivo README usando `in:readme`.
+- No es posible buscar contenido específico en archivos arbitrarios con la búsqueda general; para eso se usa la búsqueda de código y archivos.
+
+Ejemplo:
+octocat in:readme
+Encuentra repositorios que mencionan "octocat" en su README.
+
+---
+
+## 3. Búsqueda en Repositorios de un Usuario u Organización
+
+- Buscar en todos los repositorios de un usuario con `user:USERNAME`.
+- Buscar en todos los repositorios de una organización con `org:ORGNAME`.
+
+Ejemplos:
+- `user:defunkt forks:>100` — repositorios de @defunkt con más de 100 bifurcaciones.
+- `org:github` — repositorios de la organización GitHub.
+
+---
+
+## 4. Búsqueda por Tamaño del Repositorio
+
+- Se usa el calificador `size:` para filtrar según el tamaño (en KB).
+
+| Calificador | Descripción                      | Ejemplo                  |
+|-------------|---------------------------------|--------------------------|
+| `size:n`    | Tamaño exacto                   | `size:1000` (1MB)        |
+| `size:>n`   | Tamaño mayor a n                | `size:>30000` (más de 30MB) |
+| `size:<n`   | Tamaño menor a n                | `size:<50` (menos de 50KB)  |
+| `size:n..m` | Tamaño entre n y m              | `size:50..120`            |
+
+---
+
+## 5. Búsqueda por Número de Seguidores
+
+- Se usa el calificador `followers:` para filtrar según seguidores.
+
+Ejemplos:
+
+- `followers:>=10000` — repositorios con al menos 10,000 seguidores.
+- `followers:1..10` — repositorios con entre 1 y 10 seguidores.
+
+---
+
+## 6. Búsqueda por Número de Bifurcaciones (Forks)
+
+| Calificador | Descripción              | Ejemplo                 |
+|-------------|-------------------------|-------------------------|
+| `forks:n`   | Exactamente n bifurcaciones | `forks:5`               |
+| `forks:>n`  | Más de n bifurcaciones   | `forks:>=205`            |
+| `forks:<n`  | Menos de n bifurcaciones | `forks:<90`              |
+| `forks:n..m`| Entre n y m bifurcaciones| `forks:10..20`           |
+
+---
+
+## 7. Búsqueda por Número de Estrellas
+
+- `stars:` permite filtrar según estrellas recibidas.
+
+Ejemplos:
+
+- `stars:500` — repositorios con exactamente 500 estrellas.
+- `stars:10..20 size:<1000` — repositorios con 10 a 20 estrellas y tamaño menor a 1000 KB.
+- `stars:>=500 fork:true language:php` — repositorios con más de 500 estrellas, bifurcados y en PHP.
+
+---
+
+## 8. Búsqueda por Fecha de Creación o Última Actualización
+
+- `created:` para la fecha de creación.
+- `pushed:` para la última actualización.
+
+Formato: ISO8601 (YYYY-MM-DD), con posibilidad de hora y zona horaria.
+
+Ejemplos:
+
+- `created:<2011-01-01` — repositorios creados antes del 1 de enero de 2011.
+- `pushed:>2013-02-01` — repositorios actualizados después de 1 de febrero de 2013.
+- `pushed:>=2013-03-06 fork:only` — repositorios bifurcados con commits desde 6 de marzo de 2013.
+
+---
+
+## 9. Búsqueda por Lenguaje de Programación
+
+- `language:LANGUAGE` para filtrar por lenguaje.
+
+Ejemplo:
+
+- `rails language:javascript` — repositorios que contienen "rails" y están escritos en JavaScript.
+
+---
+
+## 10. Búsqueda por Tema
+
+- `topic:TOPIC` para filtrar por temas asignados.
+
+Ejemplo:
+
+- `topic:jekyll` — repositorios etiquetados con el tema "Jekyll".
+
+---
+
+## 11. Búsqueda por Número de Temas
+
+- `topics:n` para número exacto de temas.
+- `topics:>n` para más de n temas.
+
+Ejemplo:
+
+- `topics:5` — repositorios con cinco temas.
+- `topics:>3` — repositorios con más de tres temas.
+
+---
+
+## 12. Búsqueda por Licencia
+
+- `license:LICENSE_KEYWORD` para filtrar por tipo de licencia.
+
+Ejemplo:
+
+- `license:apache-2.0` — repositorios con licencia Apache 2.0.
+
+---
+
+## 13. Búsqueda por Visibilidad
+
+- `is:public` para repositorios públicos.
+- `is:private` para repositorios privados.
+
+Ejemplo:
+
+- `is:public org:github` — repositorios públicos de la organización GitHub.
+
+---
+
+## 14. Otros calificadores útiles
+
+| Calificador                 | Descripción                                         |
+|-----------------------------|-----------------------------------------------------|
+| `props.PROPERTY:VALUE`      | Buscar por propiedades personalizadas (solo en org) |
+| `mirror:true` / `mirror:false` | Buscar repositorios espejo o no espejo             |
+| `template:true` / `template:false` | Buscar repositorios plantilla o no plantilla     |
+| `archived:true` / `archived:false` | Buscar repositorios archivados o no archivados    |
+| `good-first-issues:>n`      | Buscar repositorios con problemas "good first issue" |
+| `help-wanted-issues:>n`     | Buscar repositorios con problemas "help wanted"      |
+| `is:sponsorable`            | Repositorios cuyos dueños pueden ser patrocinados   |
+| `has:funding-file`          | Repositorios con archivo de financiamiento          |
+
+---
