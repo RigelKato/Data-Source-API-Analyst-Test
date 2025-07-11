@@ -42,3 +42,6 @@ Este repositorio contiene la práctica para la vacante de Data Source API Analys
 ---
 
 *Este repositorio es una base para completar la práctica de Data Source API Analyst.*
+
+### Reflexión Final:
+Esta tarea fue una valiosa experiencia de aprendizaje. Antes de empezar, no tenía experiencia con API, repositorios de GitHub ni Google Colab. A lo largo del proyecto, investigué la API de GitHub, gestioné la autenticación y aprendí a gestionar la paginación y los límites de velocidad con Python. A pesar de la confusión inicial, completé con éxito todos los pasos y ahora me siento más seguro trabajando con extracción de datos y flujos de trabajo basados en API. Este ejercicio me proporcionó conocimientos prácticos y reforzó mis habilidades de resolución de problemas y resiliencia.
