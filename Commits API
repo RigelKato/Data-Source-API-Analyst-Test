@@ -1,0 +1,79 @@
+Content/Commits_API.md
+## Objetivo
+Este repositorio contiene la práctica para la vacante de Data Source API Analyst, enfocada en la extracción de datos usando la API de GitHub.
+
+## Estructura del repositorio
+
+- **README.md**: Documentación general y resumen del proyecto.
+- **Content/**: Documentos y código relacionado con la autenticación, endpoints, manejo de errores, paginación, y guías de solución de problemas.
+- **Postman_Collection/**: Colección Postman o notebooks para probar los endpoints de la API.
+
+## Paso 1: Investigación de la API de GitHub
+
+### Endpoints principales:
+- Búsqueda de repositorios públicos (`search/repositories`)
+- Listado de commits (`repos/{owner}/{repo}/commits`)
+- Contenidos de repositorios (`repos/{owner}/{repo}/contents/{path}`)
+
+# Investigación: API de Commits en GitHub
+
+## Objetivo
+Entender los endpoints (puntos finales) de la API REST de GitHub para trabajar con confirmaciones (commits), incluyendo verificación, paginación, y filtrado.
+
+---
+
+## 1. Listar Confirmaciones (Commits)
+
+### Endpoint principal
+GET /repos/{owner}/{repo}/commits
+
+### Descripción
+Obtiene una lista de confirmaciones (commits) en un repositorio.
+
+### Parámetros de ruta
+- `owner` (string, obligatorio): propietario del repositorio.
+- `repo` (string, obligatorio): nombre del repositorio.
+
+### Parámetros de consulta opcionales
+- `sha`: SHA o nombre de rama desde donde listar los commits (por defecto, la rama principal).
+- `path`: filtra commits que afecten a un archivo o ruta específica.
+- `author`: filtra por autor (usuario GitHub o email).
+- `committer`: filtra por committer (usuario GitHub o email).
+- `since`: devuelve commits posteriores a esta fecha (ISO 8601).
+- `until`: devuelve commits anteriores a esta fecha (ISO 8601).
+- `per_page`: número de resultados por página (máximo 100, por defecto 30).
+- `page`: número de página (por defecto 1).
+
+### Encabezados recomendados
+- `Accept: application/vnd.github+json`
+
+### Respuesta
+Devuelve un arreglo de objetos commit con detalles como SHA, autor, mensaje, y objeto de verificación.
+
+### Ejemplo curl
+```bash
+curl -L \
+  -H "Accept: application/vnd.github+json" \
+  -H "Authorization: Bearer <YOUR-TOKEN>" \
+  -H "X-GitHub-Api-Version: 2022-11-28" \
+  https://api.github.com/repos/OWNER/REPO/commits
+
+# Data-Source-API-Analyst-Test
+
+## Objetivo
+Este repositorio contiene la práctica para la vacante de Data Source API Analyst, enfocada en la extracción de datos usando la API de GitHub.
+
+## Estructura del repositorio
+
+- **README.md**: Documentación general y resumen del proyecto.
+- **Content/**: Documentos y código relacionado con la autenticación, endpoints, manejo de errores, paginación, y guías de solución de problemas.
+- **Postman_Collection/**: Colección Postman o notebooks para probar los endpoints de la API.
+
+## Paso 1: Investigación de la API de GitHub
+
+### Endpoints principales:
+- Búsqueda de repositorios públicos (`search/repositories`)
+- Listado de commits (`repos/{owner}/{repo}/commits`)
+- Contenidos de repositorios (`repos/{owner}/{repo}/contents/{path}`)
+
+---
