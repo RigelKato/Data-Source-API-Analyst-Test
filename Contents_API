@@ -1,0 +1,52 @@
+Content/Contents_API.md
+
+## Objetivo
+Este repositorio contiene la práctica para la vacante de Data Source API Analyst, enfocada en la extracción de datos usando la API de GitHub.
+
+## Estructura del repositorio
+
+- **README.md**: Documentación general y resumen del proyecto.
+- **Content/**: Documentos y código relacionado con la autenticación, endpoints, manejo de errores, paginación, y guías de solución de problemas.
+- **Postman_Collection/**: Colección Postman o notebooks para probar los endpoints de la API.
+
+## Paso 1: Investigación de la API de GitHub
+
+### Endpoints principales:
+- Búsqueda de repositorios públicos (`search/repositories`)
+- Listado de commits (`repos/{owner}/{repo}/commits`)
+- Contenidos de repositorios (`repos/{owner}/{repo}/contents/{path}`)
+
+# Investigación: API de Contenidos (Contents) en GitHub
+
+## Objetivo
+Entender el uso del endpoint para acceder al contenido de archivos y directorios en repositorios públicos o privados (con autenticación).
+
+### 1. Endpoint principal  
+`GET /repos/{owner}/{repo}/contents/{path}`
+
+### 2. Descripción  
+Permite obtener el contenido de un archivo o listado de un directorio dentro del repositorio.
+
+### 3. Parámetros de ruta  
+- `owner` (string, obligatorio): propietario del repositorio.  
+- `repo` (string, obligatorio): nombre del repositorio.  
+- `path` (string, obligatorio): ruta al archivo o directorio dentro del repositorio.
+
+### 4. Comportamiento  
+- Si `path` es un archivo, devuelve el contenido codificado en Base64 junto con metadata (nombre, tipo, tamaño, SHA, URL, etc.).  
+- Si `path` es un directorio, devuelve un arreglo con los contenidos del directorio (archivos y subdirectorios).  
+- Si `path` no existe, devuelve error 404.
+
+### 5. Parámetros de consulta opcionales  
+- `ref` (string): nombre de rama, etiqueta o commit SHA para especificar la versión del contenido (default: rama por defecto).
+
+### 6. Encabezados recomendados  
+- `Accept: application/vnd.github.v3+json`
+
+### 7. Ejemplos curl  
+
+**Obtener archivo:**  
+```bash
+curl -H "Accept: application/vnd.github.v3+json" \
+     -H "Authorization: Bearer <YOUR-TOKEN>" \
+     https://api.github.com/repos/OWNER/REPO/contents/PATH_TO_FILE
